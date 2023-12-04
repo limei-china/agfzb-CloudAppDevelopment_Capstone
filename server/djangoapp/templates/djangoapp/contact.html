@@ -14,8 +14,7 @@
 </head>
 
     <body class="d-flex flex-column min-vh-100">
-    <!-- Remove this line the first time you edit this file -->
-    <!--Add a nav bar here -->
+
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -24,12 +23,18 @@
             </div>
         </div>
     </nav>
-    <!--Add a dealer table here -->
-
+    <div class="d-flex justify-content-center align-items-center">
+    <div class="card-deck" style="width: 20rem;">
+        <div class="card" >
+            <h4 class="card-title">Contact Us</h4>
+            <p class="font-monospace">Address: xxx xxxx xxxx xxx xxxx</p>
+            <p class="font-monospace">Telephone: +xx xxxx xxxx</p>
+        </div>
+    </div>
+    </div>
     <footer class="mt-auto bg-light text-center">
         <a href="{% url 'djangoapp:contact' %}">Contact Us</a>
     </footer>
     </body>
-
 
 </html>
