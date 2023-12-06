@@ -43,7 +43,7 @@ class CarModel(models.Model):
 
     # Create a toString method for object string representation
     def __str__(self):
-        return self.name + " " + self.dealer_id + " " + self.car_type+ " " + self.year
+        return self.name + " "   + self.car_type
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 
 
