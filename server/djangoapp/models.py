@@ -38,6 +38,7 @@ class CarModel(models.Model):
     model = models.ForeignKey(CarMake, null=True, on_delete=models.CASCADE)
     name = models.CharField(null=False, max_length=30, default='car')
     dealer_id = models.IntegerField()
+    #id = models.IntegerField(default=1,primary_key=True)
     car_type = models.CharField(null=False, max_length=10, choices = CAR_TYPE_CHOICES , default=SEDAN)
     year = models.DateField()
 
@@ -70,7 +71,7 @@ class CarDealer:
         return "Dealer name: " + self.full_name
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 class DealerReview:
-    def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, sentiment,id):
+    def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, sentiment, id):
         # Dealer dealership
         self.dealership = dealership
         # Dealer name
