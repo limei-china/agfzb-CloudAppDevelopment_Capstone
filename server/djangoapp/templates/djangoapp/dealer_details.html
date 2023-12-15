@@ -20,7 +20,7 @@
                 <li>
                     <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
                     <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
-                    <a class="btn btn-link" href="{% url 'djangoapp:adddealer' dealer_id %}">Add Review</a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:add_review' dealer_id %}">Add Review</a>
                 </li>
                 {% else %}
                 <li>
@@ -39,16 +39,20 @@
         </div>
     </nav>
     <!-- Add reviews as cards -->
-        <div class="card-columns">
+        <h5>Reviews for <b>{{ full_name }}</b></h5>
+        <div class="card-columns" style="display: flex; justify-content: center; flex-wrap: wrap;">
             {% for review in reviews %}
-                <div class="card">
-                    <img class="card-img-left" src="{{MEDIA_URL}}/emoji/{{review.sentiment}}.png" alt="{{review.sentiment}}">
-                    <div class="card-body bg-light">
+                <div class="card" style="width: 200px; height:250px;">
+                    <img class="card-img-left" src="{{MEDIA_URL}}/emoji/{{review.sentiment}}.png" width="80px" height="80px" alt="{{review.sentiment}}">
+                    <div class="card-body bg-light" style="width: 200px; height:170px;">
                         <h5 class="card-title">{{ review.car_make }}, {{ review.car_model }}<br>{{ review.car_year }}</h5>
                         <p class="card-text">{{ review.review }}</p>
                     </div>
                 </div>
             {% endfor %}
         </div>
+        <footer class="mt-auto bg-light text-center fixed-bottom">
+            <a href="{% url 'djangoapp:contact' %}">Contact Us</a>
+        </footer>
     </body>
 </html>

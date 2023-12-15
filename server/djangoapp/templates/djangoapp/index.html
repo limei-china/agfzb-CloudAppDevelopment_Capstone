@@ -59,7 +59,7 @@
             {% for dealer in dealership_list %}
                 <tr>
                     <td>{{dealer.id}}</td>
-                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>   
+                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}?full_name={{ dealer.full_name}}">{{dealer.full_name}}</a></td>   
                     <td>{{dealer.city}}</td>
                     <td>{{dealer.address}}</td>
                     <td>{{dealer.zip}}</td>
@@ -68,8 +68,14 @@
             {% endfor %}
         </tbody>
     </table>
-
+    <footer class="mt-auto bg-light text-center fixed-bottom">
+        <a href="{% url 'djangoapp:contact' %}">Contact Us</a>
+    </footer>
     </body>
-
+    <script>
+        $(function() {
+          $('#table').bootstrapTable()
+        })
+    </script>
 
 </html>
