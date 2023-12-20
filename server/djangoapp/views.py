@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
+from .models import CarModel, CarDealer, DealerReview
 # from .restapis import related methods
 from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf, post_request
 from django.contrib.auth import login, logout, authenticate
@@ -115,6 +116,7 @@ def get_dealer_details(request, dealer_id):
         reviews = get_dealer_reviews_from_cf(url, dealer_id)
         full_name = request.GET.get('full_name')
         # Concat all dealer's short name
+        context["dealer_id"] = dealer_id
         context["reviews"] = reviews
         context["full_name"] = full_name
         return render(request, 'djangoapp/dealer_details.html', context)
@@ -122,6 +124,7 @@ def get_dealer_details(request, dealer_id):
 # def add_review(request, dealer_id):
 # ...
 def add_review(request, dealer_id):
+    context = {}
     url = "https://shen18071510-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
     if request.method == 'GET':
         full_name = request.GET.get('full_name')
@@ -129,6 +132,7 @@ def add_review(request, dealer_id):
         print(cars)
         context["cars"] = cars
         context["full_name"] = full_name
+        context["dealer_id"] = dealer_id
         return render(request, 'djangoapp/add_review.html', context)
     elif request.method == 'POST':
         # Check if user is authenticated
@@ -144,15 +148,15 @@ def add_review(request, dealer_id):
             review["dealership"] = dealer_id
             if "purchasecheck" in request.POST:
                 if request.POST["purchasecheck"] == 'on':
-                    payload["purchase"] = True
+                    review["purchase"] = True
                 else:
-                    payload["purchase"] = False
+                    review["purchase"] = False
             review["another"] = "field"
             review["purchase_date"] = request.POST["purchasedate"]
-            review["car_make"] = car.make.name
+            review["car_make"] = car.model.car_name
             review["car_model"] = car.name
             review["car_year"] = int(car.year.strftime("%Y"))
             # Used as the request body
             json_payload["review"] = review
             post_request(url, json_payload, dealerId = dealer_id)
-        redirect("djangoapp:dealer_details", dealer_id=dealer_id)
+            return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
