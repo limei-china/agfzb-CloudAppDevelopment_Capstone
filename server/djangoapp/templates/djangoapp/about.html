@@ -17,6 +17,8 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Dealership Review</a>
+                    <a href="{% url 'djangoapp:index' %}">Home</a>
+                    <a href="{% url 'djangoapp:about' %}">About</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
@@ -40,14 +42,6 @@
                 </ul>
             </div>
         </nav>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="{% url 'djangoapp:view' %}">Home</a>
-                <a href="{% url 'djangoapp:about' %}">About</a>
-            </div>
-        </div>
-    </nav>
     <p class="font-monospace">
     Welcome to <span class="text-primary">Best Cars dealership </span>, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
     </p>
