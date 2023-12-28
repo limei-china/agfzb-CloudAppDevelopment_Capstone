@@ -99,7 +99,7 @@ def registration_request(request):
 def get_dealerships(request):
     context = {}
     if request.method == "GET":
-        url = "https://shen18071510-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        url = "https://shen18071510-3000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         context["dealership_list"] = dealerships
@@ -111,7 +111,7 @@ def get_dealerships(request):
 def get_dealer_details(request, dealer_id):
     context = {}
     if request.method == "GET":
-        url = "https://shen18071510-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
+        url = "https://shen18071510-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
         # Get dealers from the URL
         reviews = get_dealer_reviews_from_cf(url, dealer_id)
         full_name = request.GET.get('full_name')
@@ -125,7 +125,7 @@ def get_dealer_details(request, dealer_id):
 # ...
 def add_review(request, dealer_id):
     context = {}
-    url = "https://shen18071510-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
+    url = "https://shen18071510-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
     if request.method == 'GET':
         full_name = request.GET.get('full_name')
         cars = CarModel.objects.all()
@@ -146,11 +146,10 @@ def add_review(request, dealer_id):
             review["review"] = request.POST["content"]
             review["name"] = request.user.username
             review["dealership"] = dealer_id
+            review["purchase"] = False
             if "purchasecheck" in request.POST:
                 if request.POST["purchasecheck"] == 'on':
-                    review["purchase"] = True
-                else:
-                    review["purchase"] = False
+                    review["purchase"] = True 
             review["another"] = "field"
             review["purchase_date"] = request.POST["purchasedate"]
             review["car_make"] = car.model.car_name
